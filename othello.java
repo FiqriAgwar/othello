@@ -11,7 +11,7 @@ public class othello{
     private int currentPeg;
 
     public othello(int type){
-        gameboard = new int[10][10];
+        this.gameboard = new int[10][10];
         
         // 0 -> Empty
         // 1 -> Black
@@ -20,7 +20,7 @@ public class othello{
         {
             for (int j=0; j<10; j++)
             {
-                gameboard[i][j] = 0;
+                this.gameboard[i][j] = 0;
             }
         }
 
@@ -36,37 +36,37 @@ public class othello{
     {
         if (type == 0) {
             //diagonal type
-            gameboard[4][4] = 1;
-            gameboard[5][5] = 1;
-            gameboard[4][5] = 2;
-            gameboard[5][4] = 2;
+            this.gameboard[4][4] = 1;
+            this.gameboard[5][5] = 1;
+            this.gameboard[4][5] = 2;
+            this.gameboard[5][4] = 2;
         }
         else {
             //straight type
-            gameboard[4][4] = 1;
-            gameboard[5][4] = 1;
-            gameboard[4][5] = 2;
-            gameboard[5][5] = 2;
+            this.gameboard[4][4] = 1;
+            this.gameboard[5][4] = 1;
+            this.gameboard[4][5] = 2;
+            this.gameboard[5][5] = 2;
         }
 
-        setValidMove();
+        setValidMove("Black");
     }
 
     private void printBoard()
     {
-        System.out.println("0 | A B C D E F G H");
+        System.out.println("0 | 1 2 3 4 5 6 7 8");
         for (int i=1; i<=8; i++)
         {
-            System.out.print(i + " | ");
+            System.out.print(convertInt(i) + " | ");
             for (int j=1; j<=8; j++)
             {
-                if (gameboard[i][j] == 1){
+                if (this.gameboard[i][j] == 1){
                     System.out.print("B ");
                 }
-                else if (gameboard[i][j] == 2){
+                else if (this.gameboard[i][j] == 2){
                     System.out.print("W ");
                 }
-                else if (gameboard[i][j] == 9){
+                else if (this.gameboard[i][j] == 9){
                     System.out.print("? ");
                 }
                 else{
@@ -81,10 +81,10 @@ public class othello{
     private void add(int axis, int ordinat)
     {
         if (turn == "Black"){
-            gameboard[ordinat][axis] = 1;
+            this.gameboard[ordinat][axis] = 1;
         }
         else {
-            gameboard[ordinat][axis] = 2;
+            this.gameboard[ordinat][axis] = 2;
         }
         currentPeg++;
     }
@@ -100,6 +100,20 @@ public class othello{
             case 'G' : return 7;
             case 'H' : return 8;
             default : return 0;
+        }
+    }
+
+    private char convertInt(int coord){
+        switch(coord){
+            case 1 : return 'A';
+            case 2 : return 'B';
+            case 3 : return 'C';
+            case 4 : return 'D';
+            case 5 : return 'E';
+            case 6 : return 'F';
+            case 7 : return 'G';
+            case 8 : return 'H';
+            default : return 'X';
         }
     }
 
@@ -119,7 +133,7 @@ public class othello{
 
     private boolean validMove(int axis, int ordinat)
     {
-        
+        if(this.gameboard[ordinat][axis] == 1 || this.gameboard[ordinat][axis] == 2) return false;
         boolean valid = false;
         int playerTurn = 1;
         int opponentTurn = 2;
@@ -137,16 +151,16 @@ public class othello{
                 int cekY = ordinat + y;
 
                 if(x != 0 || y != 0){
-                    if (gameboard[cekY][cekX] == opponentTurn){
+                    if (this.gameboard[cekY][cekX] == opponentTurn){
                         cekX += x;
                         cekY += y;
 
-                        while (gameboard[cekY][cekX] == opponentTurn){
+                        while (this.gameboard[cekY][cekX] == opponentTurn){
                             cekX += x;
                             cekY += y;
                         }
 
-                        if (gameboard[cekY][cekX] == playerTurn){
+                        if (this.gameboard[cekY][cekX] == playerTurn){
                             valid = true;
                         }
                     }
@@ -162,7 +176,7 @@ public class othello{
         int playerTurn = 1;
         int opponentTurn = 2;
 
-        if (turn == "White"){
+        if (this.turn == "White"){
             playerTurn = 2;
             opponentTurn = 1;
         }
@@ -175,22 +189,22 @@ public class othello{
                     int cekY = ordinat + y;
 
                     if (x != 0 || y != 0){
-                        //System.out.println(cekX + " " + cekY + " " + gameboard[cekY][cekX] + " " + axis + " " + ordinat);
-                        if (gameboard[cekY][cekX] == opponentTurn){
+                        //System.out.println(cekX + " " + cekY + " " + this.gameboard[cekY][cekX] + " " + axis + " " + ordinat);
+                        if (this.gameboard[cekY][cekX] == opponentTurn){
                             cekX += x;
                             cekY += y;
 
-                            while (gameboard[cekY][cekX] == opponentTurn){
+                            while (this.gameboard[cekY][cekX] == opponentTurn){
                                 cekX += x;
                                 cekY += y;
                             }
 
-                            if (gameboard[cekY][cekX] == playerTurn){
+                            if (this.gameboard[cekY][cekX] == playerTurn){
                                 cekX -= x;
                                 cekY -= y;
 
-                                while (gameboard[cekY][cekX] != playerTurn){
-                                    gameboard[cekY][cekX] = playerTurn;
+                                while (this.gameboard[cekY][cekX] != playerTurn){
+                                    this.gameboard[cekY][cekX] = playerTurn;
                                     cekY -= y;
                                     cekX -= x;
                                 }
@@ -201,46 +215,38 @@ public class othello{
             }
     }
 
-    private void setValidMove()
+    private void setValidMove(String turn)
     {
-        if (turn == "White") {
+        if(turn == "White"){
             whiteValidMoves = 0;
         }
-        else {
+        else{
             blackValidMoves = 0;
         }
 
-        //System.out.println(whiteValidMoves + " " + blackValidMoves);
+        System.out.println(whiteValidMoves + " " + blackValidMoves);
 
-        for (int i=1; i<=8; i++)
-        {
-            for (int j=1; j<=8; j++)
-            {
-                if (gameboard[i][j] == 9) {
-                    gameboard[i][j] = 0;
+        for(int i=1;i<=8;i++){
+            for(int j=1;j<=8;j++){
+                if(this.gameboard[i][j] == 9){
+                    this.gameboard[i][j] = 0;
                 }
 
-                //System.out.println(i + " " + j + " " + validMove(j, i));
+                if(validMove(j, i)){
+                    System.out.println(i + " " + j + " valid");
+                    this.gameboard[i][j] = 9;
+
+                    if(turn == "White"){
+                        this.whiteValidMoves++;
+                    }
+                    else{
+                        this.blackValidMoves++;
+                    }
+                }
                 
-                if (validMove(j, i)) {
-                    
-                        gameboard[i][j] = 9;
-    
-                        if (turn == "White") {
-                            whiteValidMoves++;
-                        }
-                        else {
-                            blackValidMoves++;
-                        }
-                    
-                }
 
-                //System.out.print(gameboard[i][j] + " ");
             }
-            //System.out.println();
         }
-
-        //System.out.println(whiteValidMoves + " " + blackValidMoves);
     }
 
     private boolean checkInput(String coord)
@@ -249,52 +255,23 @@ public class othello{
     }
 
     private void progress(String coordinate){
-        int axis = convertAxis(coordinate.charAt(0));
-        int ordinat = convertOrdinat(coordinate.charAt(1));
+        int ordinat = convertAxis(coordinate.charAt(0));
+        int axis = convertOrdinat(coordinate.charAt(1));
 
         add(axis, ordinat);
         flip(axis, ordinat);
         
-        if (turn == "White") {
-            turn = "Black";
+        if (this.turn == "White") {
+            this.turn = "Black";
         }
         else {
-            turn = "White";
+            this.turn = "White";
         }
         
-        setValidMove();
+        setValidMove(this.turn); //next turn valid moves
 
         if (currentPeg == 64){
             stopGame();
-        }
-
-        if (turn == "White") {
-            if (blackValidMoves == 0) {
-                turn = "White";
-                
-                setValidMove();
-
-                if (whiteValidMoves == 0){
-                    stopGame();
-                }
-            }
-            else {
-                turn = "Black";
-            }
-        }
-        else {
-            if (whiteValidMoves == 0) {
-                turn = "Black";
-
-                setValidMove();
-
-                if (blackValidMoves == 0){
-                    stopGame();
-                }
-            }
-            else {
-                turn = "White";
-            }
         }
     }
 
@@ -309,10 +286,10 @@ public class othello{
         {
             for (int j=1; j<=8; j++)
             {
-                if(gameboard[i][j] == 1){
+                if(this.gameboard[i][j] == 1){
                     blackAmount++;
                 }
-                else if (gameboard[i][j] == 2){
+                else if (this.gameboard[i][j] == 2){
                     whiteAmount++;
                 }
             }
@@ -329,19 +306,22 @@ public class othello{
         }
     }
     
-    private String takeCoordinate(){
-        Scanner input = new Scanner(System.in);
+    private String takeCoordinate(Scanner input){
 
-        System.out.print(turn + " player, it's your turn! Input your next move (e.g : A6) = ");
+        System.out.println(turn + " player, it's your turn! Input your next move (e.g : A6) = ");
         String coordinate = input.nextLine();
+        System.out.println(convertAxis(coordinate.charAt(0)) + " " + convertOrdinat(coordinate.charAt(1)) + " " + gameboard[4][3]);
 
-        while(!checkInput(coordinate))
+        System.out.println(checkInput(coordinate) + " " + this.gameboard[convertAxis(coordinate.charAt(0))][convertOrdinat(coordinate.charAt(1))]);
+
+        while(!checkInput(coordinate) || this.gameboard[convertAxis(coordinate.charAt(0))][convertOrdinat(coordinate.charAt(1))] != 9)
         {
-            System.out.print(turn + " player, it's your turn! Input your next move (e.g : A6) = ");
+            System.out.println("Inputan tidak valid");
+            System.out.println(turn + " player, it's your turn! Input your next move (e.g : A6) = ");
             coordinate = input.nextLine();
         }
 
-        input.close();
+
 
         return coordinate;
     }
@@ -349,6 +329,7 @@ public class othello{
     public static void main(String args[])
     {
         System.out.println("Start the game!");
+        Scanner input = new Scanner(System.in);
 
         othello game = new othello(0);
         game.printBoard();
@@ -356,11 +337,12 @@ public class othello{
         while (!game.endGame)
         {
             //System.out.println("in while");
-            String coordinate = game.takeCoordinate();
+            String coordinate = game.takeCoordinate(input);
 
             game.progress(coordinate);
             
             game.printBoard();
         }
+        input.close();
     }
 }

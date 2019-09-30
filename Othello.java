@@ -1,14 +1,14 @@
 import java.util.Scanner;
 
 public class Othello{
-    private int[][] gameboard;
-    private String turn;
-    private boolean endGame;
+    public int[][] gameboard;
+    public String turn;
+    public boolean endGame;
 
-    private int whiteValidMoves;
-    private int blackValidMoves;
+    public int whiteValidMoves;
+    public int blackValidMoves;
 
-    private int currentPeg;
+    public int currentPeg;
 
     public Othello(int type){
         this.gameboard = new int[10][10];
@@ -32,7 +32,23 @@ public class Othello{
         initBoard(type);
     }
 
-    private void initBoard(int type)
+    public Othello(Othello currentBoard){
+        this.gameboard = new int[10];
+
+        for (int i = 0; i < 10; i++) {
+            this.gameboard[i] = currentBoard.gameboard[i].clone();
+        }
+
+        this.turn = currentBoard.turn;
+        this.endGame = currentBoard.endGame;
+    
+        this.whiteValidMoves = currentBoard.whiteValidMoves;
+        this.blackValidMoves = currentBoard.blackValidMoves;
+    
+        this.currentPeg = currentBoard.currentPeg;
+    }
+
+    public void initBoard(int type)
     {
         if (type == 0) {
             //diagonal type
@@ -78,7 +94,7 @@ public class Othello{
         }
     }
 
-    private void add(int axis, int ordinat)
+    public void add(int axis, int ordinat)
     {
         if (turn == "Black"){
             this.gameboard[ordinat][axis] = 1;
@@ -131,7 +147,7 @@ public class Othello{
         }
     }
 
-    private boolean validMove(int axis, int ordinat)
+    public boolean validMove(int axis, int ordinat)
     {
         if(this.gameboard[ordinat][axis] == 1 || this.gameboard[ordinat][axis] == 2) return false;
         boolean valid = false;

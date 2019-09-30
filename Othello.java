@@ -1,6 +1,6 @@
 import java.util.Scanner;
 
-public class othello{
+public class Othello{
     private int[][] gameboard;
     private String turn;
     private boolean endGame;
@@ -10,7 +10,7 @@ public class othello{
 
     private int currentPeg;
 
-    public othello(int type){
+    public Othello(int type){
         this.gameboard = new int[10][10];
         
         // 0 -> Empty
@@ -334,7 +334,7 @@ public class othello{
         System.out.println("Start the game!");
         Scanner input = new Scanner(System.in);
 
-        othello game = new othello(0);
+        Othello game = new Othello(0);
         game.printBoard();
         
         while (!game.endGame)

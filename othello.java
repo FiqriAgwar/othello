@@ -270,9 +270,12 @@ public class othello{
         
         setValidMove(this.turn); //next turn valid moves
 
-        if (currentPeg == 64){
+        if (currentPeg == 64
+            || (this.turn == "White" && this.whiteValidMoves == 0)
+            || (this.turn == "Black" && this.blackValidMoves == 0)){
             stopGame();
         }
+        
     }
 
     private void stopGame()

@@ -10,10 +10,12 @@ public class GUI extends JFrame implements ActionListener {
     private Integer[][] boardgame;
     private Othello game;
     private DingdongOthello ai;
+    private RandomAI randAI;
 
     public GUI() {
         game = new Othello(0);
         this.ai = new DingdongOthello(game, "White", 5);
+        this.randAI = new RandomAI(game, "Black");
 
         this.boardgame = new Integer[8][];
         for(int i=0;i<8;i++){
@@ -27,6 +29,7 @@ public class GUI extends JFrame implements ActionListener {
     public GUI(Othello game){
         this.game = game;
         this.ai = new DingdongOthello(game, "White", 10);
+        this.randAI = new RandomAI(game, "Black");
 
         this.boardgame = new Integer[8][];
         for(int i=0;i<8;i++){
@@ -112,8 +115,14 @@ public class GUI extends JFrame implements ActionListener {
                         System.out.println(playerAction);
                         game.progress(playerAction);
 
+                        // String playerAction = randAI.randomizeMove();
+                        // game.progress(playerAction);
+
                         ai.playerMoveInput(playerAction);
-                        game.progress(ai.nextBestMove());
+                        String aiMove = ai.nextBestMove();
+                        game.progress(aiMove);
+
+                        // randAI.playerMoveInput(aiMove);
 
                         game.printBoard();
                         boardUpdate();

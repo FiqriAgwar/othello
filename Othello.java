@@ -7,7 +7,6 @@ public class Othello{
 
     public int whiteValidMoves;
     public int blackValidMoves;
-    public int countSkip;
 
     public int currentPeg;
 
@@ -30,7 +29,6 @@ public class Othello{
         whiteValidMoves = 0;
         currentPeg = 4;
         endGame = false;
-        countSkip = 0;
         initBoard(type);
         
     }
@@ -271,11 +269,9 @@ public class Othello{
 
                     if(turn == "White"){
                         this.whiteValidMoves++;
-                        this.countSkip=0;
                     }
                     else{
                         this.blackValidMoves++;
-                        this.countSkip=0;
                     }
                 }
                 
@@ -306,16 +302,19 @@ public class Othello{
         setValidMove(this.turn); //next turn valid moves
 
         if (currentPeg == 64
-            || (this.turn == "White" && this.whiteValidMoves == 0)
-            || (this.turn == "Black" && this.blackValidMoves == 0)){
+            || ((this.turn == "White" && this.whiteValidMoves == 0)
+            && (this.turn == "Black" && this.blackValidMoves == 0))){
             stopGame();
         }
         else if ((this.turn == "White" && this.whiteValidMoves == 0)
                   || (this.turn == "Black" && this.blackValidMoves == 0)){
             
-            if (this.countSkip==2){
-                stopGame();
+            if (this.turn == "White" && this.whiteValidMoves == 0) {
+                this.turn = "Black";
+            } else {
+                this.turn = "White";
             }
+            setValidMove(this.turn);
         }
 
         

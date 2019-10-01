@@ -44,7 +44,7 @@ public class DingdongOthello {
     }
 
     public String nextBestMove() {
-        String move = "";
+        String move = null;
         int value = Integer.MIN_VALUE;
         Integer alpha = Integer.MIN_VALUE;
         Integer beta = Integer.MAX_VALUE;
@@ -73,7 +73,11 @@ public class DingdongOthello {
             }
         }
 
-        playerMoveInput(move);
+        if (move == null) {
+            changeTurn(this.currentGame);
+        } else {
+            playerMoveInput(move);
+        }
         return move;
     }
 

@@ -122,7 +122,7 @@ public class Othello{
         currentPeg++;
     }
 
-    private int convertAxis(char axis){
+    public int convertAxis(char axis){
         switch(axis){
             case 'A' : return 1;
             case 'B' : return 2;
@@ -150,7 +150,7 @@ public class Othello{
         }
     }
 
-    private int convertOrdinat(char ordinat){
+    public int convertOrdinat(char ordinat){
         switch(ordinat){
             case '1' : return 1;
             case '2' : return 2;
@@ -204,7 +204,7 @@ public class Othello{
         return valid;
     }
 
-    private void flip(int axis, int ordinat){
+    public void flip(int axis, int ordinat){
         //System.out.println("masuk flip " + axis + " " + ordinat);
         int playerTurn = 1;
         int opponentTurn = 2;
@@ -248,7 +248,7 @@ public class Othello{
             }
     }
 
-    private void setValidMove(String turn)
+    public void setValidMove(String turn)
     {
         if(turn == "White"){
             whiteValidMoves = 0;
@@ -284,7 +284,7 @@ public class Othello{
         }
     }
 
-    private boolean checkInput(String coord)
+    public boolean checkInput(String coord)
     {
         return (coord.charAt(0) == 'A' || coord.charAt(0) == 'B' || coord.charAt(0) == 'C' || coord.charAt(0) == 'D' || coord.charAt(0) == 'E' || coord.charAt(0) == 'F' || coord.charAt(0) == 'G' || coord.charAt(0) == 'H') && (coord.charAt(1) == '1' || coord.charAt(1) == '2' || coord.charAt(1) == '3' || coord.charAt(1) == '4' || coord.charAt(1) == '5' || coord.charAt(1) == '6' || coord.charAt(1) == '7' || coord.charAt(1) == '8');
     }
@@ -355,7 +355,7 @@ public class Othello{
         }
     }
     
-    private String takeCoordinate(Scanner input){
+    public String takeCoordinate(Scanner input){
 
         System.out.println(turn + " player, it's your turn! Input your next move (e.g : A6) = ");
         String coordinate = input.nextLine();

@@ -9,9 +9,12 @@ public class GUI extends JFrame implements ActionListener {
     private JButton[][] board;
     private Integer[][] boardgame;
     private Othello game;
+    private DingdongOthello ai;
 
     public GUI() {
         game = new Othello(0);
+        this.ai = new DingdongOthello(game, "White", 5);
+
         this.boardgame = new Integer[8][];
         for(int i=0;i<8;i++){
             this.boardgame[i] = new Integer[8];
@@ -23,6 +26,8 @@ public class GUI extends JFrame implements ActionListener {
 
     public GUI(Othello game){
         this.game = game;
+        this.ai = new DingdongOthello(game, "White", 10);
+
         this.boardgame = new Integer[8][];
         for(int i=0;i<8;i++){
             this.boardgame[i] = new Integer[8];
@@ -103,8 +108,13 @@ public class GUI extends JFrame implements ActionListener {
                     if (this.boardgame[i][j] == 9) {
                         
                         //clearBoard();
-                        System.out.println(this.board[i][j].getActionCommand());
-                        game.progress(this.board[i][j].getActionCommand());
+                        String playerAction = this.board[i][j].getActionCommand();
+                        System.out.println(playerAction);
+                        game.progress(playerAction);
+
+                        ai.playerMoveInput(playerAction);
+                        game.progress(ai.nextBestMove());
+
                         game.printBoard();
                         boardUpdate();
                     }

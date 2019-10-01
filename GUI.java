@@ -101,16 +101,17 @@ public class GUI extends JFrame implements ActionListener {
                 
                 if(board[i][j] == e.getSource()) {
                     if (this.boardgame[i][j] == 9) {
-                        
+
                         String playerAction = this.board[i][j].getActionCommand();
-                        
+                        System.out.println(playerAction);
                         game.progress(playerAction);
-                        
+
                         ai.playerMoveInput(playerAction);
 
                         String aiBestMove = ai.nextBestMove();
                         if (aiBestMove != null){
                             game.progress(aiBestMove);
+                            System.out.println(aiBestMove);
                         }
 
                         game.printBoard();

@@ -13,7 +13,7 @@ public class GUI extends JFrame implements ActionListener {
 
     public GUI() {
         game = new Othello(0);
-        this.ai = new DingdongOthello(game, "White", 5);
+        this.ai = new DingdongOthello(game, "White", 7);
 
         this.boardgame = new Integer[8][];
         for(int i=0;i<8;i++){
@@ -113,7 +113,9 @@ public class GUI extends JFrame implements ActionListener {
                         game.progress(playerAction);
 
                         ai.playerMoveInput(playerAction);
-                        game.progress(ai.nextBestMove());
+                        if (ai.nextBestMove() != null){
+                            game.progress(ai.nextBestMove());
+                        }
 
                         game.printBoard();
                         boardUpdate();

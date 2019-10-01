@@ -43,15 +43,26 @@ public class RandomAI{
                 }
             }
         }
+        String move = null;
 
-        int index = randomizer.nextInt(indexValidMoves) + 1;
-        String move = String.valueOf(this.currentGame.convertInt(validMoves[index][0])) + Integer.toString(validMoves[index][1]);
+        if (indexValidMoves > 0) {
+            int index = randomizer.nextInt(indexValidMoves) + 1;
 
-        playerMoveInput(move);
+            move = String.valueOf(this.currentGame.convertInt(validMoves[index][0])) + Integer.toString(validMoves[index][1]);
+            playerMoveInput(move);
+        } else {
+            this.changeTurn(this.currentGame);
+        }
+
         return move;
     }
 
     public void playerMoveInput(String move) {
+        if (move == null) {
+            this.changeTurn(this.currentGame);
+            return;
+        }
+
         int ordinat = this.currentGame.convertAxis(move.charAt(0));
         int axis = this.currentGame.convertOrdinat(move.charAt(1));
 

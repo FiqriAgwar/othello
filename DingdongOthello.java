@@ -37,6 +37,11 @@ public class DingdongOthello {
     }
 
     public void playerMoveInput(String move) {
+        if (move == null) {
+            this.changeTurn(this.currentGame);
+            return;
+        }
+
         int ordinat = this.currentGame.convertAxis(move.charAt(0));
         int axis = this.currentGame.convertOrdinat(move.charAt(1));
 

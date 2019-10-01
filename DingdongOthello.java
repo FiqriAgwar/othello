@@ -153,33 +153,6 @@ public class DingdongOthello {
         return weight[ordinat-1][axis-1];
     }
 
-    /*
-    public void nextBestMove(String nextMove, Integer moveScore) {
-        for(int i=1;i<=8;i++){
-            for(int j=1;j<=8;j++){
-                if(this.gameboard[i][j] == 9){
-                    this.gameboard[i][j] = 0;
-                }
-
-                if(validMove(j, i)){
-                    System.out.println(i + " " + j + " valid");
-                    this.gameboard[i][j] = 9;
-
-                    if(turn == "White"){
-                        this.whiteValidMoves++;
-                        this.countSkip=0;
-                    }
-                    else{
-                        this.blackValidMoves++;
-                        this.countSkip=0;
-                    }
-                }
-                
-
-            }
-        }
-    }*/
-
     private void doMove(Othello game, int axis, int ordinat) {
         game.add(axis, ordinat);
         game.flip(axis, ordinat);

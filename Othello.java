@@ -339,6 +339,9 @@ public class Othello{
                 }
             }
         }
+
+        System.out.println("Black pegs: " + Integer.toString(blackAmount));
+        System.out.println("White pegs: " + Integer.toString(whiteAmount));
         
         if(whiteAmount > blackAmount) {
             System.out.println("White Wins!!");

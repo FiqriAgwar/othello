@@ -8,8 +8,7 @@ class Test {
 
         Othello game = new Othello(0);
 
-        DingdongOthello ai1 = new DingdongOthello(game, "White", 7);
-        //DingdongOthello ai2 = new DingdongOthello(game, "Black", 5);
+        DingdongOthello ai = new DingdongOthello(game, "White", 5);
         RandomAI randAI = new RandomAI(game, "Black");
 
         boolean playerTurn = true;
@@ -22,15 +21,13 @@ class Test {
 
             String coordinate;
             if (playerTurn) {
-                //System.out.println("in while");
                 //coordinate = game.takeCoordinate(input);
-                //coordinate = ai2.nextBestMove();
                 coordinate = randAI.randomizeMove();
 
-                ai1.playerMoveInput(coordinate);
+                ai.playerMoveInput(coordinate);
             } else {
                 //coordinate = game.takeCoordinate(input);
-                coordinate = ai1.nextBestMove();
+                coordinate = ai.nextBestMove();
                 
                 randAI.playerMoveInput(coordinate);
                 //ai2.playerMoveInput(coordinate);

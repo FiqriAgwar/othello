@@ -1,11 +1,9 @@
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
-import java.lang.*;
 
 public class GUI extends JFrame implements ActionListener {
     private JPanel panel;
-    private JPanel menuPanel;
     private JButton[][] board;
     private Integer[][] boardgame;
     private Othello game;
@@ -29,7 +27,7 @@ public class GUI extends JFrame implements ActionListener {
 
     public GUI(Othello game){
         this.game = game;
-        this.ai = new DingdongOthello(game, "White", 10);
+        this.ai = new DingdongOthello(game, "White", 5);
         this.randAI = new RandomAI(game, "Black");
 
         this.boardgame = new Integer[8][];
@@ -47,7 +45,7 @@ public class GUI extends JFrame implements ActionListener {
         panel.setLayout(new GridLayout(8,8,5,5));
 
         this.board = new JButton[8][8];
-        //Othello temp_game = new Othello(0);
+
         for (int i=0;i<this.boardgame.length;i++) { //from index 1 - 8
             for (int j=0;j<this.boardgame[i].length;j++) { //from index 1-8
 
@@ -56,19 +54,16 @@ public class GUI extends JFrame implements ActionListener {
                     board[i][j].setActionCommand(game.convertInt(i+1)+Integer.toString(j+1));
                     
                     panel.add(this.board[i][j]);
-                    //board[i][j].setBorder(new LineBorder(Color.BLACK));
                 }
                 else if (this.boardgame[i][j] == 1) {
                     this.board[i][j] = new JButton(new ImageIcon("img/black.png"));
                     board[i][j].setActionCommand(game.convertInt(i+1)+Integer.toString(j+1));
                     panel.add(this.board[i][j]);
-                    //board[i][j].setBorder(new LineBorder(Color.BLACK));
                 }
                 else if (this.boardgame[i][j] == 2) {
                     this.board[i][j] = new JButton(new ImageIcon("img/white.png"));
                     board[i][j].setActionCommand(game.convertInt(i+1)+Integer.toString(j+1));
                     panel.add(this.board[i][j]);
-                    //board[i][j].setBorder(new LineBorder(Color.BLACK));
                 }
                 else {
                     this.board[i][j] = new JButton(new ImageIcon("img/slc.png"));
@@ -102,7 +97,6 @@ public class GUI extends JFrame implements ActionListener {
        
     }
 
-    //
     public void actionPerformed(ActionEvent e) {
         
         for(int i=0;i<boardgame.length;i++){
@@ -111,22 +105,16 @@ public class GUI extends JFrame implements ActionListener {
                 if(board[i][j] == e.getSource()) {
                     if (this.boardgame[i][j] == 9) {
                         
-                        //clearBoard();
                         String playerAction = this.board[i][j].getActionCommand();
-                        System.out.println(playerAction);
+                        
                         game.progress(playerAction);
-
-                        // String playerAction = randAI.randomizeMove();
-                        // game.progress(playerAction);
-
+                        
                         ai.playerMoveInput(playerAction);
 
                         String aiBestMove = ai.nextBestMove();
                         if (aiBestMove != null){
                             game.progress(aiBestMove);
                         }
-						
-						// randAI.playerMoveInput(aiMove);
 
                         game.printBoard();
                         boardUpdate();
@@ -138,41 +126,21 @@ public class GUI extends JFrame implements ActionListener {
 
     public void boardUpdate(){
         this.setBoardGame(game.getGameBoard());
-        /*
-        if ((game.turn=="Black" && game.blackValidMoves == 0)){
-            //pop up skip
-            game.countSkip++;
-            game.turn = "White";
-        }
-        if ((game.turn=="White" && game.whiteValidMoves == 0)){
-            game.countSkip++;
-            game.turn = "Black";
-        }
-        if ((game.turn=="Black" && game.blackValidMoves == 0)){
-            //pop up skip
-            game.countSkip++;
-            game.turn = "White";
-        }
-        */
+
         for (int i=0;i<this.boardgame.length;i++){
             for (int j=0;j<this.boardgame.length;j++) {
 
                 if (this.boardgame[i][j] == 0) {
                     this.board[i][j].setIcon(new ImageIcon(""));
-                    
                 }
                 else if (this.boardgame[i][j] == 1) {
                     this.board[i][j].setIcon(new ImageIcon("img/black.png"));
-                    
-                    //board[i][j].setBorder(new LineBorder(Color.BLACK));
                 }
                 else if (this.boardgame[i][j] == 2) {
                     this.board[i][j].setIcon(new ImageIcon("img/white.png"));
-                    //board[i][j].setBorder(new LineBorder(Color.BLACK));
                 }
                 else {
                     this.board[i][j].setIcon(new ImageIcon("img/slc.png"));
-                    
                 }
                 board[i][j].setBackground(Color.GREEN);
                 board[i][j].addActionListener(this);
@@ -186,7 +154,7 @@ public class GUI extends JFrame implements ActionListener {
     public static void main(String args[]) {
         SwingUtilities.invokeLater(new Runnable(){
             public void run(){
-                GUI test = new GUI();
+                new GUI();
             }
         });
     }

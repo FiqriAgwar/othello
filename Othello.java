@@ -203,7 +203,6 @@ public class Othello{
     }
 
     public void flip(int axis, int ordinat){
-        //System.out.println("masuk flip " + axis + " " + ordinat);
         int playerTurn = 1;
         int opponentTurn = 2;
 
@@ -220,7 +219,6 @@ public class Othello{
                     int cekY = ordinat + y;
 
                     if (x != 0 || y != 0){
-                        //System.out.println(cekX + " " + cekY + " " + this.gameboard[cekY][cekX] + " " + axis + " " + ordinat);
                         if (this.gameboard[cekY][cekX] == opponentTurn){
                             cekX += x;
                             cekY += y;
@@ -387,11 +385,10 @@ public class Othello{
         
         while (!game.endGame)
         {
-            //System.out.println("in while");
             String coordinate = game.takeCoordinate(input);
 
             game.progress(coordinate);
-            
+
             game.printBoard();
         }
         input.close();

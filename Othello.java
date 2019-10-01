@@ -1,6 +1,8 @@
 import java.util.Scanner;
 
 public class Othello{
+    public int type;
+
     public int[][] gameboard;
     public String turn;
     public boolean endGame;
@@ -8,6 +10,9 @@ public class Othello{
     public int whiteValidMoves;
     public int blackValidMoves;
     public int countSkip;
+
+    public Coordinate[] validMoves;
+    public int nValidMoves;
 
     public int currentPeg;
 
@@ -32,10 +37,12 @@ public class Othello{
         endGame = false;
         countSkip = 0;
         initBoard(type);
-        
+        nValidMoves = 0;
+        validMoves = new Coordinate[65];
     }
 
     public Othello(Othello currentBoard){
+        this.type = currentBoard.type;
         this.gameboard = new int[10][10];
 
         for (int i = 0; i < 10; i++) {
@@ -49,6 +56,13 @@ public class Othello{
         this.blackValidMoves = currentBoard.blackValidMoves;
     
         this.currentPeg = currentBoard.currentPeg;
+
+        initBoard(currentBoard.type);
+        nValidMoves = currentBoard.nValidMoves;
+        validMoves = new Coordinate[65];
+        for(int i=1;i<=currentBoard.nValidMoves;i++){
+            validMoves[i] = new Coordinate(currentBoard.validMoves[i].x, currentBoard.validMoves[i].y);
+        }
     }
     //get
     public int[][] getGameBoard(){
@@ -109,6 +123,13 @@ public class Othello{
 
             System.out.println();
         }
+    }
+
+    public void printValidMoves(){
+        for(int i=1;i<=nValidMoves;i++){
+            System.out.print("[" + validMoves[i].x + "," + validMoves[i].y + "] ");
+        }
+        System.out.println();
     }
 
     public void add(int axis, int ordinat)
@@ -289,7 +310,7 @@ public class Othello{
         return (coord.charAt(0) == 'A' || coord.charAt(0) == 'B' || coord.charAt(0) == 'C' || coord.charAt(0) == 'D' || coord.charAt(0) == 'E' || coord.charAt(0) == 'F' || coord.charAt(0) == 'G' || coord.charAt(0) == 'H') && (coord.charAt(1) == '1' || coord.charAt(1) == '2' || coord.charAt(1) == '3' || coord.charAt(1) == '4' || coord.charAt(1) == '5' || coord.charAt(1) == '6' || coord.charAt(1) == '7' || coord.charAt(1) == '8');
     }
 
-    public void progress(String coordinate){
+    public Othello progress(String coordinate){
         int ordinat = convertAxis(coordinate.charAt(0));
         int axis = convertOrdinat(coordinate.charAt(1));
 
@@ -318,6 +339,7 @@ public class Othello{
             }
         }
 
+        return this;
         
     }
 
@@ -355,7 +377,7 @@ public class Othello{
         }
     }
     
-    private String takeCoordinate(Scanner input){
+    public String takeCoordinate(Scanner input){
 
         System.out.println(turn + " player, it's your turn! Input your next move (e.g : A6) = ");
         String coordinate = input.nextLine();
@@ -373,25 +395,5 @@ public class Othello{
 
 
         return coordinate;
-    }
-
-    public static void main(String args[])
-    {
-        System.out.println("Start the game!");
-        Scanner input = new Scanner(System.in);
-
-        Othello game = new Othello(0);
-        game.printBoard();
-        
-        while (!game.endGame)
-        {
-            //System.out.println("in while");
-            String coordinate = game.takeCoordinate(input);
-
-            game.progress(coordinate);
-            
-            game.printBoard();
-        }
-        input.close();
     }
 }

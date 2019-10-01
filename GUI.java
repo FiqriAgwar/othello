@@ -14,6 +14,7 @@ public class GUI extends JFrame implements ActionListener {
 
     public GUI() {
         game = new Othello(0);
+
         this.ai = new DingdongOthello(game, "White", 5);
         this.randAI = new RandomAI(game, "Black");
 
@@ -119,10 +120,13 @@ public class GUI extends JFrame implements ActionListener {
                         // game.progress(playerAction);
 
                         ai.playerMoveInput(playerAction);
-                        String aiMove = ai.nextBestMove();
-                        game.progress(aiMove);
 
-                        // randAI.playerMoveInput(aiMove);
+                        String aiBestMove = ai.nextBestMove();
+                        if (aiBestMove != null){
+                            game.progress(aiBestMove);
+                        }
+						
+						// randAI.playerMoveInput(aiMove);
 
                         game.printBoard();
                         boardUpdate();

@@ -3,7 +3,7 @@ import java.util.Random;
 public class RandomAI{
     public String color = "White";
     public Othello currentGame;
-    public int validMoves[][]; 
+    public int[][] validMoves; 
     public int indexValidMoves;
     private Random randomizer;
 
@@ -18,6 +18,9 @@ public class RandomAI{
     public RandomAI(Othello gameState, String color){
         this.currentGame = new Othello(gameState);
         this.color = color;
+        this.validMoves = new int[65][2];
+        this.indexValidMoves = 0;
+        this.randomizer = new Random();
 
         for(int i=1;i<=8;i++){
             for(int j=1;j<=8;j++){
@@ -42,7 +45,7 @@ public class RandomAI{
         }
 
         int index = randomizer.nextInt(indexValidMoves) + 1;
-        String move = String.valueOf(this.currentGame.convertInt(validMoves[index][0]) + Integer.toString(validMoves[index][0]));
+        String move = String.valueOf(this.currentGame.convertInt(validMoves[index][0])) + Integer.toString(validMoves[index][1]);
 
         playerMoveInput(move);
         return move;
